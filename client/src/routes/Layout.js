@@ -34,7 +34,7 @@ class Layout extends Component {
           <Fragment>
             <NavBar />
             <Switch>
-              <Route path="/home" component={Home} />
+              <Route path="/home" user={this.state.user} component={Home} />
               <Route path="/about" component={About} />
               <Redirect from="/*" to="/home" />
             </Switch>

@@ -37,7 +37,7 @@ yarn start
 ## Author
 
 - Name: Jeremiah
-- My [Linkin](https://www.linkedin.com/in/jeremiah-aguirre-606708181/)
+- My [LinkedIn](https://www.linkedin.com/in/jeremiah-aguirre-606708181/)
 
 ## Am I missing some essential feature?
 

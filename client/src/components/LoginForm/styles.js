@@ -1,10 +1,10 @@
 const styles = (theme) => ({
   formControl: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: '20px',
     width: '100%',
   },
   formButton: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: '20px',
   },
   formToggle: {
     background: 'none',

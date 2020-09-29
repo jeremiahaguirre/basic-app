@@ -6,7 +6,22 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import homeIMG from '../../images/home_card.jpg';
 import AddUserInfo from '../../components/AddUserInfo';
+import fire from '../../config/server';
+const firebase = require('firebase/app');
+require('firebase/auth');
+require('firebase/database');
+
 const Home = ({ classes }) => {
+  const addInfo = (obj) => {
+    fire
+      .database()
+      .ref()
+      .child('UserInfo')
+      .push(obj, (err) => {
+        if (err) console.log(err);
+      });
+  };
+
   return (
     <div className={classes.container}>
       <Card className={classes.root}>
@@ -27,7 +42,7 @@ const Home = ({ classes }) => {
           </CardContent>
         </CardActionArea>
       </Card>
-      <AddUserInfo />
+      <AddUserInfo addInfo={addInfo} />
     </div>
   );
 };
