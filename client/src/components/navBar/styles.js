@@ -1,18 +1,15 @@
 const styles = {
-  logo: {
-    width: '40px',
-    height: 'auto'
-  },
   navBar: {
+    backgroundColor: 'lightgreen',
     display: 'flex',
     flexWarp: 'no-warp',
-    justifyContent: 'space-between',
-    width: '100%'
+    justifyContent: 'center',
+    width: '100%',
   },
   login: {
     textTransform: 'uppercase',
     display: 'flex',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 };
 export default styles;

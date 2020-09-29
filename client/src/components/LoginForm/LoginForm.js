@@ -1,122 +1,75 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { Form, Field } from 'react-final-form';
 import styles from './styles';
+import fire from '../../config/server';
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
+    this.login = this.login.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.signup = this.signup.bind(this);
     this.state = {
       formToggle: true,
-      error: null,
+      email: '',
+      password: '',
     };
+  }
+
+  login(e) {
+    e.preventDefault();
+    fire
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then((u) => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  signup(e) {
+    e.preventDefault();
+    fire
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then((u) => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
   render() {
     return (
-      <Form
-        onSubmit={(values) => {
-          const user = { variables: { user: values } };
-          this.state.formToggle
-            ? loginMutation(user).catch((error) => this.setState({ error }))
-            : signupMutation(user).catch((error) => this.setState({ error }));
-        }}
-        validate={validate}
-        render={({ handleSubmit, form, pristine, invalid }) => (
-          <form onSubmit={handleSubmit} className={classes.accountForm}>
-            {!this.state.formToggle && (
-              <FormControl fullWidth className={classes.formControl}>
-                <InputLabel htmlFor="fullname">Username</InputLabel>
-                <Field name="fullname">
-                  {({ input }) => (
-                    <Input
-                      id="fullname"
-                      type="text"
-                      inputProps={{
-                        ...input,
-                        autoComplete: 'off',
-                      }}
-                      value={input.value}
-                    />
-                  )}
-                </Field>
-              </FormControl>
-            )}
-            <FormControl fullWidth className={classes.formControl}>
-              <InputLabel htmlFor="email">Email</InputLabel>
-              <Field name="email">
-                {({ input }) => (
-                  <Input
-                    id="email"
-                    type="text"
-                    inputProps={{
-                      ...input,
-                      autoComplete: 'off',
-                    }}
-                    value={input.value}
-                  />
-                )}
-              </Field>
-            </FormControl>
-            <FormControl fullWidth className={classes.formControl}>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Field name="password">
-                {({ input }) => (
-                  <Input
-                    id="password"
-                    type="password"
-                    inputProps={{
-                      ...input,
-                      autoComplete: 'off',
-                    }}
-                    value={input.value}
-                  />
-                )}
-              </Field>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <Grid
-                container
-                direction="row"
-                justify="space-between"
-                alignItems="center"
-              >
-                <Button
-                  type="submit"
-                  className={classes.formButton}
-                  variant="contained"
-                  size="large"
-                  color="secondary"
-                  disabled={pristine || invalid}
-                >
-                  {this.state.formToggle ? 'Enter' : 'Create Account'}
-                </Button>
-                <Typography>
-                  <button
-                    className={classes.formToggle}
-                    type="button"
-                    onClick={() => {
-                      form.reset();
-                      this.setState({
-                        error: null,
-                        formToggle: !this.state.formToggle,
-                      });
-                    }}
-                  >
-                    {this.state.formToggle
-                      ? 'Create an account.'
-                      : 'Login to existing account.'}
-                  </button>
-                </Typography>
-              </Grid>
-            </FormControl>
-            <Typography className={classes.errorMessage}>
-              {(this.state.error && this.state.formToggle) ||
-                (this.state.error && !this.state.formToggle)}
-            </Typography>
-          </form>
-        )}
-      />
+      <div>
+        <form>
+          <label>Email Address</label>
+          <input
+            value={this.state.email}
+            onChange={this.handleChange}
+            type="email"
+            name="email"
+            id="inputEmail"
+            placeholder="Email"
+          ></input>
+          <label>Password</label>
+          <input
+            value={this.state.password}
+            onChange={this.handleChange}
+            type="password"
+            name="password"
+            id="inputPass"
+            placeholder="Password"
+          ></input>
+          <button type="submit" onClick={this.login}>
+            Login
+          </button>
+          <button onClick={this.signup}>Sign Up</button>
+        </form>
+      </div>
     );
   }
 }
+
 export default withStyles(styles)(LoginForm);

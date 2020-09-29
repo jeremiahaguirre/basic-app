@@ -1,5 +1,3 @@
-import theme from '../../theme/index';
-
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
